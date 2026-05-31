@@ -1,0 +1,126 @@
+<div class="employee-container">
+
+  <div class="header">
+    <h2>Employee Management</h2>
+
+    <button routerLink="/dashboard" class="back-btn">
+      Back to Dashboard
+    </button>
+  </div>
+
+  <div class="table-card">
+
+    <p *ngIf="isLoading" class="loading-text">Loading Employees...</p>
+
+    <div *ngIf="!isLoading">
+
+      <p>Total Employees: {{ employees.length }}</p>
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Salary</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let employee of employees" appHighlight>
+
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name | titlecase }}</td>
+            <td>{{ employee.department | department }}</td>
+            <td>{{ employee.salary | currency: 'INR': 'symbol' }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.status }}</td>
+
+            <td>
+              <button (click)="openDialog(employee)"
+                      class="edit-btn">
+                Edit
+              </button>
+
+              <button (click)="openDeleteDialog(employee)"
+                      class="delete-btn">
+                Delete
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+
+      <div class="pagination-info">
+
+        Showing {{ getStartRecord() }} - {{ getEndRecord() }} of {{ totalCount }} Employees
+
+      </div>
+
+      <div class="pagination-container">
+
+        <button (click)="previousPage()"
+                [disabled]="currentPage === 1">
+          Previous
+        </button>
+
+        <button *ngFor="let page of pageNumbers"
+                (click)="goToPage(page)"
+                [class.active-page]="currentPage === page">
+          {{ page }}
+        </button>
+
+        <button (click)="nextPage()"
+                [disabled]="currentPage === totalPages">
+          Next
+        </button>
+
+      </div>
+
+      <div class="page-size-container">
+
+        <label>
+          Records per page
+        </label>
+
+        <select (change)="onPageSizeChange($event)" [value]="pageSize">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </div>
+
+      <p *ngIf="employees.length === 0" class="empty-message">
+        No employees found.
+      </p>
+      <p *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+<app-employee-dialog
+                     *ngIf="showDialog"
+                     [employee]="selectedEmployee"
+                     (close)="closeDialog()"
+                     (saved)="onEmployeeUpdated()">
+</app-employee-dialog>
+
+<app-confirm-dialog
+                     *ngIf="showDeleteDialog"
+                     title="Delete Employee"
+                     [message]="'Are you sure you want to delete ' + emloyeeToDelete.name + '?'"
+                     (cancelled)="closeDeleteDialog()"
+                     (confirmed)="confirmDelete()">
+</app-confirm-dialog>

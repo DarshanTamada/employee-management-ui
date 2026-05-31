@@ -1,0 +1,53 @@
+<div class="form-container">
+
+  <div class="form-card">
+
+    <h2>Add Employee</h2>
+
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+
+      <input type="text" placeholder="Name" formControlName="name">
+      <small class="error-msg" *ngIf="employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched">
+        Name is required.
+      </small>
+
+      <select formControlName="department">
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="Fin">Fin</option>
+      </select>
+
+      <input type="number" placeholder="Salary" formControlName="salary">
+      <small class="error-msg" *ngIf="employeeForm.get('salary')?.invalid && employeeForm.get('salary')?.touched">
+        Salary is required.
+      </small>
+
+      <input type="email" placeholder="Email" formControlName="email">
+      <small class="error-msg" *ngIf="employeeForm.get('email')?.invalid && employeeForm.get('email')?.touched">
+        Please enter a valid email.
+      </small>
+
+      <select formControlName="status">
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
+      </select>
+
+      <button type="submit" [disabled]="employeeForm.invalid" >Add Employee</button>
+
+      <button type="button" routerLink="/employees" class="cancel-btn">
+        Cancel
+      </button>
+
+    </form>
+
+    <p *ngIf="successMessage" class="success-msg">
+      {{ successMessage }}
+    </p>
+
+    <p *ngIf="errorMessage" class="error-msg">
+      {{ errorMessage }}
+    </p>
+
+  </div>
+
+</div>

@@ -1,0 +1,67 @@
+body {
+  background: #f4f6f9;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.form-card {
+  width: 420px;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 25px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+  button[type="submit"] {
+    background: #3498db;
+    color: white;
+  }
+
+.cancel-btn {
+  background: #7f8c8d;
+  color: white;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.success-msg {
+  color: green;
+  text-align: center;
+}
+
+.error-msg {
+  color: red;
+  text-align: center;
+}

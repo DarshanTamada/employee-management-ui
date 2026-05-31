@@ -1,0 +1,31 @@
+<nav class="navbar" *ngIf="appState.isLoggedIn()">
+
+  <div class="logo">
+    Employee Management App
+  </div>
+
+  <div class="nav-links">
+
+    <span class="welcome-text">Welcome {{ appState.userName() }}</span>
+
+    <a routerLink="/dashboard">Dashboard</a>
+
+    <a routerLink="/employees">Employees</a>
+
+    <a routerLink="/employees/add">Add Employee</a>
+
+    <a routerLink="/profile">Profile</a>
+
+    <button (click)="openLogoutDialog()">Logout</button>
+
+  </div>
+
+</nav>
+
+<app-confirm-dialog
+  *ngIf="showLogoutDialog"
+  [title]="'Logout Confirmation'"
+  [message]="'Are you sure you want to logout?'"
+  (confirmed)="confirmLogout()"
+  (cancelled)="closeLogoutDialog()">
+</app-confirm-dialog>
